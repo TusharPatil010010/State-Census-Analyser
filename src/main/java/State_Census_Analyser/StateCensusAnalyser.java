@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
+import java.util.List;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -22,14 +23,15 @@ public class StateCensusAnalyser {
 	 * @return
 	 * @throws CensusAnalyserException
 	 * @throws IOException
+	 * @throws CSVBuilderException 
 	 */
-	public int loadCSVData(String csvFile) throws CensusAnalyserException, IOException {
+	public int loadCSVData(String csvFile) throws CensusAnalyserException, IOException, CSVBuilderException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFile));
 			@SuppressWarnings("unchecked")
 			ICSVBuilder<CSVStateCensus> csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<CSVStateCensus> censusIterator = csvBuilder.getCSVFileIterator(reader,CSVStateCensus.class);
-			return this.getCount(censusIterator);
+			List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(reader,CSVStateCensus.class);
+			return censusCSVList.size();
 		} catch (RuntimeException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_FILE);
 		} catch (NoSuchFileException e) {
@@ -44,24 +46,19 @@ public class StateCensusAnalyser {
 	 * @return
 	 * @throws IOException
 	 * @throws CensusAnalyserException
+	 * @throws CSVBuilderException 
 	 */
-	public int loadIndianStateCode(String csvFile) throws IOException, CensusAnalyserException {
+	public int loadIndianStateCode(String csvFile) throws IOException, CensusAnalyserException, CSVBuilderException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFile));
 			@SuppressWarnings("unchecked")
 			ICSVBuilder<StateCodeCSV> csvBuilder = CSVBuilderFactory.createCSVBuilder();
-			Iterator<StateCodeCSV> censusIterator = csvBuilder.getCSVFileIterator(reader, StateCodeCSV.class);
-			return this.getCount(censusIterator);
+			List<StateCodeCSV> censusCSVList = csvBuilder.getCSVFileList(reader,StateCodeCSV.class);
+			return censusCSVList.size();
 		} catch (RuntimeException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_FILE);
 		} catch (NoSuchFileException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.NO_FILE);
 		}
-	}
-
-	private <E> int getCount(Iterator<E> iterator) {
-		Iterable<E> csvIterable = () -> iterator;
-		int countOfRecords = (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
-		return countOfRecords;
 	}
 }

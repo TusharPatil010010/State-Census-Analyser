@@ -14,7 +14,7 @@ public class StateCensusAnalyserTest {
 	private static final String STATE_CODE_CSV = "C:\\Users\\adity\\eclipse-workspace\\Indian State Census\\IndiaStateCode.csv";
 
 	@Test
-	public void givenCSVFile_IfMatchNumberOfRecords_ShouldReturnTrue() throws IOException {
+	public void givenCSVFile_IfMatchNumberOfRecords_ShouldReturnTrue() throws IOException, CSVBuilderException {
 		StateCensusAnalyser analyser = new StateCensusAnalyser();
 		int count = 0;
 		try {
@@ -26,7 +26,7 @@ public class StateCensusAnalyserTest {
 	}
 
 	@Test
-	public void givenCSVFile_IfWrongFile_ShouldThrowError() throws IOException {
+	public void givenCSVFile_IfWrongFile_ShouldThrowError() throws IOException, CSVBuilderException {
 		StateCensusAnalyser analyser = new StateCensusAnalyser();
 		int count = 0;
 		try {
@@ -38,7 +38,8 @@ public class StateCensusAnalyserTest {
 	}
 
 	@Test
-	public void givenCSVFile_WhenFileCorrect_ButExtensionIncorrect_ShouldThrowError() throws IOException {
+	public void givenCSVFile_WhenFileCorrect_ButExtensionIncorrect_ShouldThrowError()
+			throws IOException, CSVBuilderException {
 		StateCensusAnalyser analyser = new StateCensusAnalyser();
 		int count = 0;
 		try {
@@ -50,7 +51,8 @@ public class StateCensusAnalyserTest {
 	}
 
 	@Test
-	public void givenCSVFile_WhenFileCorrect_ButDelimiterIncorrect_ShouldThrowError() throws IOException {
+	public void givenCSVFile_WhenFileCorrect_ButDelimiterIncorrect_ShouldThrowError()
+			throws IOException, CSVBuilderException {
 		StateCensusAnalyser analyser = new StateCensusAnalyser();
 		int count = 0;
 		try {
@@ -62,7 +64,8 @@ public class StateCensusAnalyserTest {
 	}
 
 	@Test
-	public void givenCSVFile_WhenFileCorrect_ButHeaderIncorrect_ShouldThrowError() throws IOException {
+	public void givenCSVFile_WhenFileCorrect_ButHeaderIncorrect_ShouldThrowError()
+			throws IOException, CSVBuilderException {
 		StateCensusAnalyser analyser = new StateCensusAnalyser();
 		int count = 0;
 		try {
