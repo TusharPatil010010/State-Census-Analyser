@@ -33,6 +33,7 @@ public class StateCensusAnalyser {
 			ICSVBuilder<CSVStateCensus> csvBuilder = CSVBuilderFactory.createCSVBuilder();
 			List<CSVStateCensus> censusCSVList = csvBuilder.getCSVFileList(reader,CSVStateCensus.class);
 			sortThisListBasedOnStateName(censusCSVList);
+			sortThisListBasedOnPopulation(censusCSVList);
 			return censusCSVList.size();
 		} catch (RuntimeException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_FILE);
@@ -58,5 +59,11 @@ public class StateCensusAnalyser {
         Comparator<CSVStateCensus> c = Comparator.comparing(CSVStateCensus::getStateName);
         censusList.sort(c);
         writeThisListToJsonFile(NAME_FILE);
+    }
+    
+    private static void sortThisListBasedOnPopulation(List<CSVStateCensus> censusList) {
+        Comparator<CSVStateCensus> c = (s1, s2) -> Integer.parseInt(s2.getPopulation()) - Integer.parseInt(s1.getPopulation());
+        censusList.sort(c);
+        writeThisListToJsonFile(POPULATION_FILE);
     }
 }
