@@ -15,13 +15,19 @@ import com.csvbuildernew.ICSVBuilder;
 import com.google.gson.Gson;
 
 public class StateCensusAnalyser {
-
-	private static String POPULATION_FILE = "C:\\Users\\LENOVO\\eclipse-workspace\\State_Census_Analyser\\src\\main\\resources\\populationwise_sort.json";
-	private static String NAME_FILE = "C:\\Users\\LENOVO\\eclipse-workspace\\State_Census_Analyser\\src\\main\\resources\\namewise_sort.json";
 	List<CSVStateCensus> censusCSVList = null;
 	List<StateCodeCSV> stateCodeCSVList = null;
 	static int censusCounter;
 
+	/**
+	 * UC1 loads csv census data
+	 * 
+	 * @param csvFile
+	 * @return
+	 * @throws CensusAnalyserException
+	 * @throws IOException
+	 * @throws CSVBuilderException
+	 */
 	public int loadCSVData(String csvFile) throws CensusAnalyserException, IOException, CSVBuilderException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFile));
@@ -36,6 +42,15 @@ public class StateCensusAnalyser {
 		}
 	}
 
+	/**
+	 * UC2 loads csv code data
+	 * 
+	 * @param csvFile
+	 * @return
+	 * @throws IOException
+	 * @throws CensusAnalyserException
+	 * @throws CSVBuilderException
+	 */
 	public int loadIndianStateCode(String csvFile) throws IOException, CensusAnalyserException, CSVBuilderException {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFile));
@@ -75,6 +90,12 @@ public class StateCensusAnalyser {
 		}
 	}
 
+	/**
+	 * UC3 sorts census data
+	 * 
+	 * @return
+	 * @throws CensusAnalyserException
+	 */
 	public String getStateWiseSortedCensusData() throws CensusAnalyserException {
 		if (censusCSVList == null || censusCSVList.size() == 0) {
 			throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
@@ -85,6 +106,12 @@ public class StateCensusAnalyser {
 		return sortedStateCensusJson;
 	}
 
+	/**
+	 * UC4 sorts census according to codes
+	 * 
+	 * @return
+	 * @throws CensusAnalyserException
+	 */
 	public String getStateCodeWiseSortedCensusData() throws CensusAnalyserException {
 		if (stateCodeCSVList == null || stateCodeCSVList.size() == 0) {
 			throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
@@ -95,6 +122,12 @@ public class StateCensusAnalyser {
 		return sorted;
 	}
 
+	/**
+	 * UC5 sorts according to population
+	 * 
+	 * @return
+	 * @throws CensusAnalyserException
+	 */
 	public String getPopulationWiseSortedCensusData() throws CensusAnalyserException {
 		if (censusCSVList == null || censusCSVList.size() == 0) {
 			throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
@@ -105,6 +138,12 @@ public class StateCensusAnalyser {
 		return sortedStateCensusJson;
 	}
 
+	/**
+	 * UC6 sorts according to density
+	 * 
+	 * @return
+	 * @throws CensusAnalyserException
+	 */
 	public String getPopulationDensityWiseSortedCensusData() throws CensusAnalyserException {
 		if (censusCSVList == null || censusCSVList.size() == 0) {
 			throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
@@ -115,6 +154,12 @@ public class StateCensusAnalyser {
 		return sortedStateCensusJson;
 	}
 
+	/**
+	 * UC7 sorts according to Area
+	 * 
+	 * @return
+	 * @throws CensusAnalyserException
+	 */
 	public String getAreaWiseSortedCensusData() throws CensusAnalyserException {
 		if (censusCSVList == null || censusCSVList.size() == 0) {
 			throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
