@@ -2,21 +2,19 @@ package State_Census_Analyser;
 
 import com.opencsv.bean.CsvBindByName;
 
-import java.util.Comparator;
-
-public class CSVStateCensus implements Comparable<CSVStateCensus> {
+public class CSVStateCensus {
 
 	@CsvBindByName(column = "State")
-	private String stateName;
+	public String stateName;
 
 	@CsvBindByName(column = "Population", required = true)
-	private String population;
+	public String population;
 
 	@CsvBindByName(column = "AreaInSqKm")
-	private String areaInSqKm;
+	public String areaInSqKm;
 
 	@CsvBindByName(column = "DensityPerSqKm", required = true)
-	private String densityPerSqKm;
+	public String densityPerSqKm;
 
 	public CSVStateCensus() {
 
@@ -60,15 +58,21 @@ public class CSVStateCensus implements Comparable<CSVStateCensus> {
 				+ '\'' + ", densityPerSqKm='" + densityPerSqKm + '\'' + "\n";
 	}
 
-	@Override
-	public int compareTo(CSVStateCensus stateCensus) {
-		return this.stateName.compareTo(stateCensus.stateName);
-	}
+//	@Override
+//	public int compareTo(CSVStateCensus o) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
-	static class StateCensusComparator implements Comparator<CSVStateCensus> {
-		public int compare(CSVStateCensus obj1, CSVStateCensus obj2) {
-			return obj1.getStateName().compareTo(obj2.getStateName());
-		}
-	}
+//	@Override
+//	public int compareTo(CSVStateCensus stateCensus) {
+//		return this.stateName.compareTo(stateCensus.stateName);
+//	}
+
+//	static class StateCensusComparator implements Comparator<CSVStateCensus> {
+//		public int compare(CSVStateCensus obj1, CSVStateCensus obj2) {
+//			return obj1.getStateName().compareTo(obj2.getStateName());
+//		}
+//	}
 
 }
